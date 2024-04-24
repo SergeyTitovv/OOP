@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+class IStrategy
+{
+public:
+    virtual void execute() = 0;
+};
+
+
+class ConcreteStrategy1 : public IStrategy
+{
+public:
+    void execute() override
+    {
+        cout << "Executing concrete strategy 1" << endl;
+    }
+};
+
+
+class ConcreteStrategy2 : public IStrategy
+{
+public:
+    void execute() override
+    {
+        cout << "Executing concrete strategy 2" << endl;
+    }
+};
+
+
+class Context
+{
+private:
+    IStrategy* strategy;
+
+public:
+    void setStrategy(IStrategy* strategy)
+    {
+        this->strategy = strategy;
+    }
+
+    void executeStrategy()
+    {
+        strategy->execute();
+    }
+};
+
+int main() {
+    ConcreteStrategy1 strategy1;
+    ConcreteStrategy2 strategy2;
+
+    Context context;
+
+    context.setStrategy(&strategy1);
+    context.executeStrategy();
+
+    context.setStrategy(&strategy2);
+    context.executeStrategy();
+
+    return 0;
+}
